@@ -1,0 +1,8 @@
+package interfaces;
+
+public interface INode {
+	public void doAction();
+	public void addValue(boolean value);
+	public void setOutputNodes(INode node);
+	public void setInputAmount(int inputAmount);
+}

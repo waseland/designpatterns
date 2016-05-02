@@ -1,5 +1,5 @@
 package interfaces;
 
-public interface IOutputNode {
-
+public interface IOutputNode extends INode {
+	public void sendOutput();
 }

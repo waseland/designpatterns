@@ -1,0 +1,41 @@
+package nodes;
+
+import java.util.ArrayList;
+
+import interfaces.INode;
+
+public class AndNode implements INode {
+
+	private ArrayList<INode> outputNodes;
+	private ArrayList<Boolean> values;
+	private int inputAmount;
+	
+	public AndNode() {
+		outputNodes = new ArrayList<INode>();
+		inputAmount = 0;
+	}
+	
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void addOutputNode(INode node) {
+		outputNodes.add(node);
+	}
+
+	@Override
+	public void setInputAmount(int inputAmount) {
+		if(inputAmount > 0) {
+			this.inputAmount = inputAmount;
+		}
+	}
+
+	@Override
+	public void addValue(Boolean value) {
+		
+	}
+
+}

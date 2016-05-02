@@ -1,0 +1,31 @@
+package nodes;
+
+import interfaces.INode;
+
+public class NotNode implements INode{
+
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addValue(boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addOutputNode(INode node) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setInputAmount(int inputAmount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

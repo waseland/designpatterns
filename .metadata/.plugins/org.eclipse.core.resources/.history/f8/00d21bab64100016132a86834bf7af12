@@ -1,0 +1,41 @@
+package nodes;
+
+import java.util.ArrayList;
+
+import interfaces.INode;
+
+public class XOrNode implements INode {
+
+	private ArrayList<INode> outputNodes;
+	private int inputAmount;
+	
+	public XOrNode() {
+		outputNodes = new ArrayList<INode>();
+		inputAmount = 0;
+	}
+	
+	@Override
+	public void doAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addValue(Boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addOutputNode(INode node) {
+		outputNodes.add(node);
+		
+	}
+
+	@Override
+	public void setInputAmount(int inputAmount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
