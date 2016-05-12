@@ -1,0 +1,20 @@
+package program;
+
+import controller.PathReader;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		PathReader pr = new PathReader();
+		pr.getLines();
+		
+		for(String s : pr.getLines()) {
+			System.out.println(s);;
+		}
+
+	}
+	
+	
+
+}

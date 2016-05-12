@@ -1,0 +1,13 @@
+package controller;
+
+import java.util.ArrayList;
+
+import interfaces.IInputNode;
+
+public class NodeFactory {
+	
+	public ArrayList<IInputNode> createCircuit() {
+		
+		return null;
+	}
+}

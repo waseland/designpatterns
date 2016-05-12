@@ -8,57 +8,64 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import view.ViewClass;
 
 public class PathReader {
 
 	public PathReader(){
-		getPath();
+		//getPath();
 	}
-	public void getPath(){
+	
+	public ArrayList<String> getLines(String pathString){
 		 ViewClass vc = new ViewClass();
 		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		 System.out.println("---------------------------");
 		 System.out.println("Enter Pathname to text file");
 		 
 		 try {
-			String pathName = br.readLine();
+			//String pathName = br.readLine();
 			
-			Path path = Paths.get(pathName);
-			if (!pathName.equals("") && Files.exists(path)) {
+			Path path = Paths.get(pathString);
+			if (!pathString.equals("") && Files.exists(path)) {
 				vc.showText("Path is: " + path);
-				if(pathName.endsWith(".txt")){
+				if(pathString.endsWith(".txt")){
 					vc.showText("Found the file!");
-					getFile(pathName);
+					//Returns the file as an ArrayList of Strings.
+					return getFile(pathString);
 				}
 				else{
 					vc.showText("Filepath is not a .txt file");
-					getPath();
 				}
 			}
 			else{
 				vc.showText("Filepath does not exist");
-				getPath();
 			}
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
+		 
+		return null;
 	};
 	
-	public void getFile(String path) throws FileNotFoundException{
-		 try {
+	private ArrayList<String> getFile(String path) throws FileNotFoundException{
+		ArrayList<String> list = new ArrayList<String>();
+		
+		try {
 			FileReader fr = new FileReader(path);
 			BufferedReader br = new BufferedReader(fr);
 			
 			String line;
 			while ((line = br.readLine()) != null) {
-			    System.out.println(line);
+			    list.add(line);
 			}
 		    fr.close();
 			
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
+		
+		return list;
 	};
 }

@@ -1,0 +1,23 @@
+package controller;
+
+import java.util.ArrayList;
+
+import interfaces.IInputNode;
+import interfaces.INode;
+import interfaces.IOutputNode;
+
+public class NodeFactory {
+	private ArrayList<IInputNode> inputNodes;
+	private ArrayList<INode> nodes;
+	private ArrayList<IOutputNode> outputNodes;
+	
+	
+	public ArrayList<IInputNode> createCircuit() {
+		
+		return null;
+	}
+	
+	public void createNodes() {
+		
+	}
+}

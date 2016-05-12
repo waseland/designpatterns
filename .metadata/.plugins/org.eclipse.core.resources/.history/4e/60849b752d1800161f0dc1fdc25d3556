@@ -1,0 +1,49 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import interfaces.IInputNode;
+import interfaces.INode;
+import interfaces.IOutputNode;
+
+public class NodeFactory {
+	private Map<String, IInputNode> inputNodes;
+	private Map<String, INode> nodes;
+	private Map<String, IOutputNode> outputNodes;
+	private ArrayList<String> nodeTypes;
+	
+	public NodeFactory() {
+		nodeTypes = new ArrayList<String>();
+		nodeTypes.add("AND");
+		nodeTypes.add("NOT");
+		nodeTypes.add("NAND");
+		nodeTypes.add("NOR");
+		nodeTypes.add("OR");
+		nodeTypes.add("XOR");
+	}
+	
+	public ArrayList<IInputNode> createCircuit() {
+		
+		return null;
+	}
+	
+	public void createNodes() {
+		PathReader pr = new PathReader();
+
+		for(String s : pr.getLines("C:/Users/Marthijn/Documents/GitHub/designpatterns/Bestanden/circuit1.txt")) {
+			if(!s.startsWith("#") && !s.isEmpty()) {
+				String name;
+				if(s.contains(":") && s.endsWith(";"))
+				{
+					s.replace(";", "");
+					//s.replace(" ", "");
+					s.replace("\t", "");
+					//s.split(":");
+					System.out.println(s);
+				}
+				
+			}
+		}
+	}
+}
