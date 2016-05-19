@@ -2,6 +2,8 @@ package program;
 
 import controller.NodeFactory;
 import controller.PathReader;
+import factory.Factory;
+import interfaces.INode;
 
 public class Program {
 
@@ -13,10 +15,32 @@ public class Program {
 			System.out.println(s);
 		}*/
 		
-		NodeFactory factory = new NodeFactory();
+		//NodeFactory factory = new NodeFactory();
 		
-		factory.createNodes();
-
+		//factory.createNodes();
+		
+		//Factory f = new Factory();
+		test();
+		
+	}
+	
+	public static void test() {
+		try 
+		{
+			final INode input = Factory.create("InputNode");
+			final INode not = Factory.create("NotNode");
+			final INode output = Factory.create("OutputNode");
+			
+			input.addOutputNode(not);
+			not.addOutputNode(output);
+			input.setInputAmount(1);
+			input.addValue(true);
+			
+		} 
+		catch ( IllegalArgumentException exception )
+		{
+			System.out.println( exception.getMessage() );
+		}
 	}
 	
 	

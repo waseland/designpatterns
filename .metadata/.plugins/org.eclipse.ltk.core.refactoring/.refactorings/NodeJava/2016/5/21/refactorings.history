@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;NodeJava/src/META-INF/services/com.avans.factory.commands.AbstractCommand&apos; to &apos;interfaces.INode&apos;" description="Rename resource &apos;com.avans.factory.commands.AbstractCommand&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/META-INF/services/com.avans.factory.commands.AbstractCommand" name="interfaces.INode" stamp="1463653588631" updateReferences="true"/>
+</session>

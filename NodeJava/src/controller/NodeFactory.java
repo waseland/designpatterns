@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import interfaces.IInputNode;
@@ -11,7 +12,7 @@ public class NodeFactory {
 	private Map<String, IInputNode> inputNodes;
 	private Map<String, INode> nodes;
 	private Map<String, IOutputNode> outputNodes;
-	private Map<String, String> nodeTypes;
+	private Map<String, String> nodeTypes = new HashMap<String, String>();
 	
 	public NodeFactory() {
 		nodeTypes.put("AND", "");
@@ -45,6 +46,7 @@ public class NodeFactory {
 						} else {
 							if(nodeTypes.containsKey(split)) {
 								//Create NODE
+								System.out.println(split);
 							} else {
 								//Find name, add output.
 							}
@@ -52,7 +54,7 @@ public class NodeFactory {
 					}
 					
 					s.split(":");
-					System.out.println(s);
+					//System.out.println(s);
 				}
 				
 			}
@@ -60,7 +62,7 @@ public class NodeFactory {
 	}
 	
 	public INode createSingleNode(String name, String type) {
-		//if()
+
 		return null;
 	}
 }

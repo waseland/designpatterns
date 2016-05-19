@@ -6,8 +6,8 @@ import interfaces.INode;
 
 public class AndNode implements INode {
 
-	private ArrayList<INode> outputNodes;
-	private ArrayList<Boolean> values;
+	private ArrayList<INode> outputNodes = new ArrayList<INode>();
+	private ArrayList<Boolean> values = new ArrayList<Boolean>();
 	private int inputAmount;
 	
 	public AndNode() {
@@ -27,6 +27,7 @@ public class AndNode implements INode {
 		}
 		
 		for(INode node : outputNodes) {
+			System.out.println(output);
 			node.addValue(output);
 		}
 	}
@@ -49,5 +50,10 @@ public class AndNode implements INode {
 		if(values.size() == inputAmount) {
 			doAction();
 		}
+	}
+
+	@Override
+	public INode copy() {
+		return new AndNode();
 	}
 }

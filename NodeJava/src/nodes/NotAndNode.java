@@ -6,8 +6,8 @@ import interfaces.INode;
 
 public class NotAndNode implements INode{
 
-	private ArrayList<INode> outputNodes;
-	private ArrayList<Boolean> values;
+	private ArrayList<INode> outputNodes = new ArrayList<INode>();
+	private ArrayList<Boolean> values = new ArrayList<Boolean>();
 	private int inputAmount;
 	
 	public NotAndNode() {
@@ -49,6 +49,11 @@ public class NotAndNode implements INode{
 		if(values.size() == inputAmount) {
 			doAction();
 		}
+	}
+
+	@Override
+	public INode copy() {
+		return new NotAndNode();
 	}
 
 }

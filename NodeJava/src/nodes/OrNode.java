@@ -6,8 +6,8 @@ import interfaces.INode;
 
 public class OrNode implements INode{
 
-	private ArrayList<INode> outputNodes;
-	private ArrayList<Boolean> values;
+	private ArrayList<INode> outputNodes = new ArrayList<INode>();
+	private ArrayList<Boolean> values = new ArrayList<Boolean>();
 	private int inputAmount;
 	
 	public OrNode() {
@@ -50,5 +50,10 @@ public class OrNode implements INode{
 		if(values.size() == inputAmount) {
 			doAction();
 		}
+	}
+
+	@Override
+	public INode copy() {
+		return new OrNode();
 	}
 }
