@@ -59,8 +59,7 @@ public class NodeFactory {
 		}
 	}
 	
-	public INode createSingleNode(String name, String type) {
-		//if()
-		return null;
+	public void createSingleNode(String name, String type) {
+		
 	}
 }
