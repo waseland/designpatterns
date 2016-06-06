@@ -1,0 +1,15 @@
+package view;
+
+import interfaces.IOutputHandler;
+
+public class ViewClass implements IOutputHandler{
+	public void showText(String str){
+		System.out.println(str);
+	}
+
+	@Override
+	public void doOutput(String name, boolean value) {
+		System.out.println(name + ": " + value);
+	}
+}
+

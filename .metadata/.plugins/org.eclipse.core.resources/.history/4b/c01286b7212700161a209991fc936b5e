@@ -1,0 +1,89 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import factory.Factory;
+import interfaces.IInputNode;
+import interfaces.INode;
+import interfaces.IOutputNode;
+
+public class NodeFactory {
+	private Map<String, IInputNode> inputNodes = new HashMap<String, IInputNode>();
+	private Map<String, INode> nodes = new HashMap<String, INode>();
+	private Map<String, IOutputNode> outputNodes = new HashMap<String, IOutputNode>();
+	// private Map<String, String> nodeTypes = new HashMap<String, String>();
+
+	public NodeFactory() {
+		/*
+		 * nodeTypes.put("AND", ""); nodeTypes.put("NOT", "");
+		 * nodeTypes.put("NAND", ""); nodeTypes.put("NOR", "");
+		 * nodeTypes.put("OR", ""); nodeTypes.put("XOR", "");
+		 */
+	}
+
+	public ArrayList<IInputNode> createCircuit() {
+
+		return null;
+	}
+
+	public void createNodes(String url) {
+		PathReader pr = new PathReader();
+
+		// "C:/Users/Marthijn/Documents/GitHub/designpatterns/Bestanden/circuit1.txt"
+
+		for (String s : pr.getLines(url)) {
+			if (!s.startsWith("#") && !s.isEmpty()) {
+
+				if (s.contains(":") && s.endsWith(";")) {
+					s = s.replace(";", "");
+					s = s.replaceAll("\\s+", "");
+
+					String[] parts = s.split(":", 2);
+					
+					//System.out.println(parts);
+					
+					System.out.println("S: " + s);
+					
+					/*for(String p : parts) {
+						System.out.println(p);
+					}*/
+					
+					String name = parts[0];
+					String type = parts[1];
+					
+					System.out.println("name: " + name);
+					System.out.println("type: " + type);
+					
+					if (!nodes.containsKey(name)) {
+						try {
+							INode node = Factory.createFromName(type);
+							
+							if (node.isInput()) {
+								inputNodes.put(name, (IInputNode) node);
+							} else if (node.isOutput()) {
+								outputNodes.put(name, (IOutputNode) node);
+							}
+
+							nodes.put(name, node);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+						// System.out.println(split);
+					} else {
+						System.out.println("it should do othher");
+						// Find name, add output.
+					}
+				}
+			}
+
+		}
+	}
+
+	public INode createSingleNode(String name, String type) {
+
+		return null;
+	}
+}

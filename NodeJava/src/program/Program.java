@@ -15,7 +15,7 @@ public class Program {
 			System.out.println(s);
 		}*/
 		
-		//NodeFactory factory = new NodeFactory();
+		
 		
 		//factory.createNodes();
 		
@@ -25,11 +25,17 @@ public class Program {
 	}
 	
 	public static void test() {
-		try 
+		NodeFactory nodeFactory = new NodeFactory();
+		
+		nodeFactory.createNodes("C:/Users/Marthijn/Documents/GitHub/designpatterns/Bestanden/circuit1.txt");
+		nodeFactory.start();
+		nodeFactory.showNodes();
+		
+		/*try 
 		{
-			final INode input = Factory.create("InputNode");
-			final INode not = Factory.create("NotNode");
-			final INode output = Factory.create("OutputNode");
+			final INode input = Factory.createFromName("INPUT");
+			final INode not = Factory.createFromName("NOT");
+			final INode output = Factory.createFromName("PROBE");
 			
 			input.addOutputNode(not);
 			not.addOutputNode(output);
@@ -40,7 +46,7 @@ public class Program {
 		catch ( IllegalArgumentException exception )
 		{
 			System.out.println( exception.getMessage() );
-		}
+		}*/
 	}
 	
 	

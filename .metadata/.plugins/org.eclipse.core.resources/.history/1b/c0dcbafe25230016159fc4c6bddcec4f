@@ -1,0 +1,80 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import factory.Factory;
+import interfaces.IInputNode;
+import interfaces.INode;
+import interfaces.IOutputNode;
+
+public class NodeFactory {
+	private Map<String, IInputNode> inputNodes = new HashMap<String, IInputNode>();
+	private Map<String, INode> nodes = new HashMap<String, INode>();
+	private Map<String, IOutputNode> outputNodes = new HashMap<String, IOutputNode>();
+	//private Map<String, String> nodeTypes = new HashMap<String, String>();
+	
+	public NodeFactory() {
+		/*nodeTypes.put("AND", "");
+		nodeTypes.put("NOT", "");
+		nodeTypes.put("NAND", "");
+		nodeTypes.put("NOR", "");
+		nodeTypes.put("OR", "");
+		nodeTypes.put("XOR", "");*/
+	}
+	
+	public ArrayList<IInputNode> createCircuit() {
+		
+		return null;
+	}
+	
+	public void createNodes(String url) {
+		PathReader pr = new PathReader();
+		
+		//"C:/Users/Marthijn/Documents/GitHub/designpatterns/Bestanden/circuit1.txt"
+		
+		for(String s : pr.getLines(url)) {
+			if(!s.startsWith("#") && !s.isEmpty()) {
+				String name = null;
+				
+				if(s.contains(":") && s.endsWith(";"))
+				{
+					s = s.replace(";", "");
+					s = s.replaceAll("\\s+", "");
+					
+					for(String split : s.split(":", 2)) {
+						if(name == null) {
+							name = split;
+						} else {
+							if(!nodes.containsKey(split)) {
+								INode node = Factory.createFromName(split);
+								if(node.isInput()) {
+									inputNodes.put(split, (IInputNode)node);
+								} else if(node.isOutput()) {
+									outputNodes.put(split, (IOutputNode)node);
+								}
+								
+								nodes.put(split, node);
+								
+								System.out.println(split);
+							} else {
+								System.out.println("it should do othher");
+								//Find name, add output.
+							}
+						}
+					}
+					
+					s.split(":");
+					//System.out.println(s);
+				}
+				
+			}
+		}
+	}
+	
+	public INode createSingleNode(String name, String type) {
+
+		return null;
+	}
+}

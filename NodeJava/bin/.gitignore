@@ -1,6 +1,6 @@
 /controller/
-/interfaces/
-/nodes/
 /factory/
+/nodes/
+/view/
+/interfaces/
 /program/
-/META-INF/

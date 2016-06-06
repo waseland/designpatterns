@@ -29,18 +29,18 @@ public class PathReader {
 			
 			Path path = Paths.get(pathString);
 			if (!pathString.equals("") && Files.exists(path)) {
-				vc.showText("Path is: " + path);
+				vc.write("Path is: " + path);
 				if(pathString.endsWith(".txt")){
-					vc.showText("Found the file!");
+					vc.write("Found the file!");
 					//Returns the file as an ArrayList of Strings.
 					return getFile(pathString);
 				}
 				else{
-					vc.showText("Filepath is not a .txt file");
+					vc.write("Filepath is not a .txt file");
 				}
 			}
 			else{
-				vc.showText("Filepath does not exist");
+				//vc.showText("Filepath does not exist");
 			}
 		} catch (IOException e) {			
 			e.printStackTrace();

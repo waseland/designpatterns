@@ -1,0 +1,76 @@
+package nodes;
+
+import java.util.ArrayList;
+
+import interfaces.INode;
+
+public class OrNode implements INode{
+
+	private ArrayList<INode> outputNodes = new ArrayList<INode>();
+	private ArrayList<Boolean> values = new ArrayList<Boolean>();
+	private int inputAmount;
+	private String name = "OR";
+	private boolean isInput = false;
+	private boolean isOutput = false;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public OrNode() {
+		outputNodes = new ArrayList<INode>();
+		inputAmount = 1;
+	}
+	
+	@Override
+	public void doAction() {
+		Boolean output = false;
+		
+		//OR, if one of the values is true, send true. Otherwise send false.
+		for(Boolean value : values) {
+			if(value == true) {
+				output = true;
+			}
+		}
+		
+		for(INode node : outputNodes) {
+			node.addValue(output);
+		}
+		
+	}
+
+	@Override
+	public void addOutputNode(INode node) {
+		outputNodes.add(node);
+	}
+
+	@Override
+	public void setInputAmount(int inputAmount) {
+		if(inputAmount > 0) {
+			this.inputAmount = inputAmount;
+		}
+	}
+
+	@Override
+	public void addValue(Boolean value) {
+		values.add(value);
+		if(values.size() == inputAmount) {
+			doAction();
+		}
+	}
+
+	@Override
+	public INode copy() {
+		return new OrNode();
+	}
+	
+	@Override
+	public boolean isInput() {
+		return isInput;
+	}
+
+	@Override
+	public boolean isOutput() {
+		return isOutput;
+	}
+}

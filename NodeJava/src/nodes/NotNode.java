@@ -9,10 +9,18 @@ public class NotNode implements INode{
 	private ArrayList<INode> outputNodes = new ArrayList<INode>();
 	private ArrayList<Boolean> values = new ArrayList<Boolean>();
 	private int inputAmount;
+	private String literalName;
+	private String name = "NOT";
+	private boolean isInput = false;
+	private boolean isOutput = false;
+	
+	public String getName() {
+		return name;
+	}
 	
 	public NotNode() {
 		outputNodes = new ArrayList<INode>();
-		inputAmount = 1;
+		inputAmount = 0;
 	}
 	
 	@Override
@@ -32,6 +40,16 @@ public class NotNode implements INode{
 	@Override
 	public void addOutputNode(INode node) {
 		outputNodes.add(node);
+	}
+	
+	@Override
+	public boolean isInput() {
+		return isInput;
+	}
+
+	@Override
+	public boolean isOutput() {
+		return isOutput;
 	}
 
 	/**
@@ -57,4 +75,23 @@ public class NotNode implements INode{
 		return new NotNode();
 	}
 
+	@Override
+	public void heightenInputAmount() {
+		inputAmount++;
+	}
+	
+	@Override
+	public ArrayList<INode> getOutputNodes() {
+		return outputNodes;
+	}
+	
+	@Override
+	public String getLiteralName() {
+		return literalName;
+	}
+
+	@Override
+	public void setLiteralName(String name) {
+		this.literalName = name;	
+	}
 }

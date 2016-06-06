@@ -9,10 +9,18 @@ public class NotOrNode implements INode{
 	private ArrayList<INode> outputNodes = new ArrayList<INode>();
 	private ArrayList<Boolean> values = new ArrayList<Boolean>();
 	private int inputAmount;
+	private String literalName;
+	private String name = "NOR";
+	private boolean isInput = false;
+	private boolean isOutput = false;
+	
+	public String getName() {
+		return name;
+	}
 	
 	public NotOrNode() {
 		outputNodes = new ArrayList<INode>();
-		inputAmount = 1;
+		inputAmount = 0;
 	}
 	
 	@Override
@@ -55,6 +63,36 @@ public class NotOrNode implements INode{
 	@Override
 	public INode copy() {
 		return new NotOrNode();
+	}
+	
+	@Override
+	public boolean isInput() {
+		return isInput;
+	}
+
+	@Override
+	public boolean isOutput() {
+		return isOutput;
+	}
+	
+	@Override
+	public void heightenInputAmount() {
+		inputAmount++;
+	}
+	
+	@Override
+	public ArrayList<INode> getOutputNodes() {
+		return outputNodes;
+	}
+	
+	@Override
+	public String getLiteralName() {
+		return literalName;
+	}
+
+	@Override
+	public void setLiteralName(String name) {
+		this.literalName = name;	
 	}
 
 }
