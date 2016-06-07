@@ -1,6 +1,3 @@
-/interfaces/
 /nodes/
-/view/
-/program/
 /controller/
-/factory/
+/interfaces/

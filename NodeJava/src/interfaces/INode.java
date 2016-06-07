@@ -13,6 +13,8 @@ public interface INode extends Cloneable {
 	public boolean isOutput();
 	public String getLiteralName();
 	public void setLiteralName(String name);
+	public void clearValues();
+	public boolean didWork();
 	
 	INode copy();
 	String getName();

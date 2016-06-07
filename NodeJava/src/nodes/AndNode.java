@@ -93,4 +93,18 @@ public class AndNode implements INode {
 	public void setLiteralName(String name) {
 		this.literalName = name;	
 	}
+
+	@Override
+	public void clearValues() {
+		this.values.clear();
+	}
+
+	@Override
+	public boolean didWork() {
+		if(values.size() == inputAmount || inputAmount < 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

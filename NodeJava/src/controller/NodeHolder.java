@@ -17,7 +17,6 @@ public class NodeHolder implements IInputHandler{
 	private Map<String, INode> nodes = new HashMap<String, INode>();
 	private Map<String, IOutputNode> outputNodes = new HashMap<String, IOutputNode>();
 	private IOutputHandler output;
-	// private Map<String, String> nodeTypes = new HashMap<String, String>();
 
 	public NodeHolder(IOutputHandler output) {
 		this.output = output;
@@ -78,8 +77,18 @@ public class NodeHolder implements IInputHandler{
 	//TODO: before start do some kind of clear on nodes. 2nd run wont work due to existing values.
 	@Override
 	public void start() {
+		for(String n : nodes.keySet()) {
+			nodes.get(n).clearValues();
+		}
+		
 		for(String s : inputNodes.keySet()) {
 			inputNodes.get(s).doAction();
+		}
+		
+		for(String s : outputNodes.keySet()) {
+			if(!outputNodes.get(s).didWork()) {
+				output.write("WARING: Node " + outputNodes.get(s).getLiteralName() + " did not work correctly!");
+			}
 		}
 	}
 
@@ -91,6 +100,11 @@ public class NodeHolder implements IInputHandler{
 		
 		if(s.endsWith(".txt")) {
 			createNodes(s);
+			
+			if(outputNodes.isEmpty()) {
+				output.write("WARNING: Your circuit does not have any output nodes!");
+			}
+			
 			return true;
 		} else {
 			return false;
@@ -102,13 +116,21 @@ public class NodeHolder implements IInputHandler{
 	public void showCircuit() {
 		for(String name : nodes.keySet()) {
 			String outputs = "";
+			
 			for(INode n : nodes.get(name).getOutputNodes()) {
-				outputs += n.getLiteralName() + ", ";
+				outputs += n.getLiteralName() + "(" + n.getName() + "), ";
 			}
+			
 			if(nodes.get(name).getOutputNodes().size() < 1) {
-				outputs = "FINAL";
+				outputs = "FINAL.";
+			} else {
+				outputs = outputs.substring(0, outputs.length()-2);
+				outputs = outputs + ".";
 			}
-			output.write("NODE: " + nodes.get(name).getLiteralName() + " - OUTPUT: " + outputs);
+			
+			String circuitString = "NODE: " + nodes.get(name).getLiteralName() + "(" + nodes.get(name).getName() + ") - OUTPUT: " + outputs;
+			
+			output.write(circuitString);
 		}
 	}
 }

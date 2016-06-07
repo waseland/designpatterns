@@ -74,6 +74,15 @@ public class InputLowNode implements IInputNode {
 	}
 	
 	@Override
+	public boolean didWork() {
+		if(values.size() == inputAmount || inputAmount < 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
 	public ArrayList<INode> getOutputNodes() {
 		return outputNodes;
 	}
@@ -86,5 +95,10 @@ public class InputLowNode implements IInputNode {
 	@Override
 	public void setLiteralName(String name) {
 		this.literalName = name;	
+	}
+	
+	@Override
+	public void clearValues() {
+		this.values.clear();
 	}
 }
