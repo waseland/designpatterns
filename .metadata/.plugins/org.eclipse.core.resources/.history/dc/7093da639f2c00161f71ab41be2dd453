@@ -1,0 +1,46 @@
+package view;
+
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import interfaces.IOutputHandler;
+
+public class MainWindow extends JFrame implements IOutputHandler{
+
+	private JPanel pane;
+	private JTextArea textArea;
+	private JScrollPane scrollPane;
+	
+	public MainWindow() {
+		setupView();
+		this.setVisible(true);
+		
+	}
+	
+	private void setupView() {
+		this.pane = new JPanel();
+		this.textArea = new JTextArea();
+		this.scrollPane = new JScrollPane(textArea);
+		pane.setSize(new Dimension(1000, 800));
+		pane.add(scrollPane);
+		this.setContentPane(pane);
+		this.setResizable(false);
+	}
+	
+	@Override
+	public void doOutput(String name, boolean value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void write(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

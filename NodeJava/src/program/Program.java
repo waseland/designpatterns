@@ -1,52 +1,26 @@
 package program;
 
-import controller.NodeFactory;
+import controller.NodeHolder;
 import controller.PathReader;
 import factory.Factory;
 import interfaces.INode;
+import view.MainWindow;
 
 public class Program {
 
 	public static void main(String[] args) {
-		
-		/*PathReader pr = new PathReader();
-		
-		for(String s : pr.getLines("C:/Users/Marthijn/Documents/GitHub/designpatterns/Bestanden/circuit1.txt")) {
-			System.out.println(s);
-		}*/
-		
-		
-		
-		//factory.createNodes();
-		
-		//Factory f = new Factory();
 		test();
 		
 	}
 	
 	public static void test() {
-		NodeFactory nodeFactory = new NodeFactory();
+		MainWindow mw = new MainWindow();
+		NodeHolder nodeFactory = new NodeHolder(mw);
+		mw.setInput(nodeFactory);
 		
-		nodeFactory.createNodes("C:/Users/Marthijn/Documents/GitHub/designpatterns/Bestanden/circuit1.txt");
+/*		nodeFactory.createNodes("C:/Repositories/designpatterns/Bestanden/circuit1.txt");
 		nodeFactory.start();
-		nodeFactory.showNodes();
-		
-		/*try 
-		{
-			final INode input = Factory.createFromName("INPUT");
-			final INode not = Factory.createFromName("NOT");
-			final INode output = Factory.createFromName("PROBE");
-			
-			input.addOutputNode(not);
-			not.addOutputNode(output);
-			input.setInputAmount(1);
-			input.addValue(true);
-			
-		} 
-		catch ( IllegalArgumentException exception )
-		{
-			System.out.println( exception.getMessage() );
-		}*/
+		nodeFactory.showNodes();*/
 	}
 	
 	

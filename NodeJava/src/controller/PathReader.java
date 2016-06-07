@@ -10,33 +10,35 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import interfaces.IOutputHandler;
 import view.ViewClass;
 
 public class PathReader {
 
+	private IOutputHandler output;
+	
+	public PathReader(IOutputHandler output){
+		this.output = output;
+	}
+	
 	public PathReader(){
-		//getPath();
+		this.output = new ViewClass();
 	}
 	
 	public ArrayList<String> getLines(String pathString){
-		 ViewClass vc = new ViewClass();
 		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		 System.out.println("---------------------------");
-		 System.out.println("Enter Pathname to text file");
 		 
 		 try {
-			//String pathName = br.readLine();
-			
 			Path path = Paths.get(pathString);
 			if (!pathString.equals("") && Files.exists(path)) {
-				vc.write("Path is: " + path);
+				output.write("Path is: " + path);
 				if(pathString.endsWith(".txt")){
-					vc.write("Found the file!");
+					output.write("Found the file!");
 					//Returns the file as an ArrayList of Strings.
 					return getFile(pathString);
 				}
 				else{
-					vc.write("Filepath is not a .txt file");
+					output.write("Filepath is not a .txt file");
 				}
 			}
 			else{

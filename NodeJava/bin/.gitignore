@@ -1,6 +1,6 @@
-/controller/
-/factory/
+/interfaces/
 /nodes/
 /view/
-/interfaces/
 /program/
+/controller/
+/factory/

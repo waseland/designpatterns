@@ -32,9 +32,6 @@ public class Factory {
 		    String key = entry.getKey();
 		    INode value = entry.getValue();
 		    
-		    /*System.out.println("type: " +type);
-		    System.out.println("valuetype: " +value.getName());*/
-		    
 		    if(type.equals(value.getName())) {
 		    	temp = create(key);
 		    }
