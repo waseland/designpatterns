@@ -35,6 +35,11 @@ public class InputLowNode implements IInputNode {
 	public void addOutputNode(INode node) {
 		outputNodes.add(node);
 	}
+	
+	public void setOutputNodes(ArrayList<INode> outputNodes){
+		this.outputNodes = outputNodes;
+	}
+
 
 	@Override
 	public void setInputAmount(int inputAmount) {

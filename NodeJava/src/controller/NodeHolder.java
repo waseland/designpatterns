@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import factory.Factory;
@@ -10,6 +11,8 @@ import interfaces.IInputNode;
 import interfaces.INode;
 import interfaces.IOutputHandler;
 import interfaces.IOutputNode;
+import nodes.InputHighNode;
+import nodes.InputLowNode;
 import view.ViewClass;
 
 public class NodeHolder implements IInputHandler{
@@ -111,7 +114,7 @@ public class NodeHolder implements IInputHandler{
 		}
 			
 	}
-
+	
 	@Override
 	public void showCircuit() {
 		for(String name : nodes.keySet()) {
@@ -133,4 +136,38 @@ public class NodeHolder implements IInputHandler{
 			output.write(circuitString);
 		}
 	}
+	
+	@Override
+	public Map<String, IInputNode> getInputNodes(){
+		return this.inputNodes;
+		
+	}
+
+	@Override
+	public void changeInputNodes(List<String> temp) {
+
+		for(String s : temp){
+			
+			if(this.inputNodes.get(s).getName() == "INPUT_HIGH"){
+				InputHighNode tempnode = (InputHighNode) this.inputNodes.get(s);
+				InputLowNode tempnode2 =  new InputLowNode();
+				tempnode2.setOutputNodes(tempnode.getOutputNodes());
+				tempnode2.setLiteralName(tempnode.getLiteralName());
+				inputNodes.remove(s);
+				inputNodes.put(s, tempnode2);
+				
+			}
+			else if(this.inputNodes.get(s).getName() == "INPUT_LOW"){
+				
+				InputLowNode tempnode = (InputLowNode) this.inputNodes.get(s);
+				InputHighNode tempnode2 =  new InputHighNode();
+				tempnode2.setOutputNodes(tempnode.getOutputNodes());
+				tempnode2.setLiteralName(tempnode.getLiteralName());
+				inputNodes.remove(s);
+				inputNodes.put(s, tempnode2);
+			}
+			
+			
+		}
+	};
 }

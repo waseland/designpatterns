@@ -30,10 +30,14 @@ public class InputHighNode implements IInputNode {
 			node.addValue(true);
 		}
 	}
-	
+
 	@Override
 	public void addOutputNode(INode node) {
 		outputNodes.add(node);
+	}
+	
+	public void setOutputNodes(ArrayList<INode> outputNodes){
+		this.outputNodes = outputNodes;
 	}
 
 	@Override

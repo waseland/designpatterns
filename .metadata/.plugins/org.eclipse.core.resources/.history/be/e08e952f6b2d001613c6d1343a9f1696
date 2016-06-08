@@ -1,0 +1,128 @@
+package view;
+
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import interfaces.IInputHandler;
+import interfaces.IInputNode;
+import interfaces.INode;
+import interfaces.IOutputHandler;
+
+public class MainWindow extends JFrame implements IOutputHandler {
+
+	private JPanel pane;
+	private JTextArea textArea;
+	private JScrollPane scrollPane;
+	private JFileChooser fileChooser;
+	private JButton fileButton;
+	private JButton startButton;
+	private JButton showButton;
+	private JButton clearButton;
+	private JButton changeButton;
+	private IInputHandler input;
+	
+	public MainWindow() {
+		setupView();
+		this.setVisible(true);
+	}
+	
+	public void setInput(IInputHandler input) {
+		this.input = input;
+	}
+	
+	private void setupView() {
+		this.pane = new JPanel();
+		pane.setSize(new Dimension(1000, 600));
+		
+		fileButton = new JButton("file");
+		changeButton = new JButton("change input");
+		startButton = new JButton("start");
+		showButton = new JButton("show");
+		clearButton = new JButton("clear");
+		
+		
+		setupListeners();
+		pane.add(fileButton);
+		pane.add(changeButton);
+		pane.add(startButton);
+		pane.add(showButton);
+		pane.add(clearButton);
+		
+		
+		this.textArea = new JTextArea(30, 80);
+		this.textArea.setSize(new Dimension(pane.getSize().width, pane.getSize().height/2));
+		this.scrollPane = new JScrollPane(textArea);
+		this.scrollPane.setSize(new Dimension(pane.getSize().width, pane.getSize().height/2));
+		pane.add(scrollPane);
+		
+		this.setSize(pane.getSize());
+		this.setContentPane(pane);
+		this.setResizable(false);
+	}
+	
+	private void setupListeners() {
+		fileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectFile();
+            }
+        });
+		
+		startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                input.start();
+            }
+        });
+		
+		showButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                input.showCircuit();
+            }
+        });
+		
+		clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea.setText("");
+            }
+        });
+		changeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+	}
+	
+	private void selectFile() {
+		fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		int result = fileChooser.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = fileChooser.getSelectedFile();
+			input.setCircuit(selectedFile.getAbsolutePath());
+		}
+	}
+	
+	@Override
+	public void doOutput(String name, boolean value) {
+		this.textArea.append("The output from " + name + " is " + value + "." + "\n");
+	}
+
+	@Override
+	public void write(String s) {
+		this.textArea.append(s + "\n");
+	}
+	
+}

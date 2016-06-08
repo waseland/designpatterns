@@ -1,18 +1,28 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 
 import interfaces.IInputHandler;
+import interfaces.IInputNode;
+import interfaces.INode;
 import interfaces.IOutputHandler;
 
 public class MainWindow extends JFrame implements IOutputHandler {
@@ -25,6 +35,7 @@ public class MainWindow extends JFrame implements IOutputHandler {
 	private JButton startButton;
 	private JButton showButton;
 	private JButton clearButton;
+	private JButton changeButton;
 	private IInputHandler input;
 	
 	public MainWindow() {
@@ -41,14 +52,19 @@ public class MainWindow extends JFrame implements IOutputHandler {
 		pane.setSize(new Dimension(1000, 600));
 		
 		fileButton = new JButton("file");
+		changeButton = new JButton("change input");
 		startButton = new JButton("start");
 		showButton = new JButton("show");
 		clearButton = new JButton("clear");
+		
+		
 		setupListeners();
 		pane.add(fileButton);
+		pane.add(changeButton);
 		pane.add(startButton);
 		pane.add(showButton);
 		pane.add(clearButton);
+		
 		
 		this.textArea = new JTextArea(30, 80);
 		this.textArea.setSize(new Dimension(pane.getSize().width, pane.getSize().height/2));
@@ -89,6 +105,12 @@ public class MainWindow extends JFrame implements IOutputHandler {
                 textArea.setText("");
             }
         });
+		changeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	createWindow();
+            }
+        });
 	}
 	
 	private void selectFile() {
@@ -109,6 +131,43 @@ public class MainWindow extends JFrame implements IOutputHandler {
 	@Override
 	public void write(String s) {
 		this.textArea.append(s + "\n");
+	}
+	
+	private void createWindow(){
+    	
+    		JFrame frame = new JFrame("Input Change");
+    	    JPanel panel = new JPanel(new GridLayout(0, 1));
+    	    Border border = BorderFactory.createTitledBorder("What Inputs do you want to change?");
+    	    panel.setBorder(border);
+    	    List<JCheckBox> cbArray = new ArrayList<JCheckBox>();
+    	    for(String s : input.getInputNodes().keySet()){
+    	    	JCheckBox check = new JCheckBox(s + " " + input.getInputNodes().get(s).getName());
+    	    	cbArray.add(check);
+    	    	check.setName(s);
+    	    	panel.add(check);
+    	    }
+    	    
+    	    JButton submitbutton = new JButton("Submit");
+    	    Container contentPane = frame.getContentPane();
+    	    contentPane.add(panel, BorderLayout.CENTER);
+    	    contentPane.add(submitbutton, BorderLayout.SOUTH);
+    	    frame.setSize(300, 200);
+    	    frame.setVisible(true);
+    	    submitbutton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                	List<String> temp = new ArrayList<String>();
+                	for(JCheckBox cb : cbArray){
+                	  
+                	  if(cb.isSelected() == true){
+                		  temp.add(cb.getName());
+                	  }
+                	  
+                  }
+                	input.changeInputNodes(temp);
+                	frame.dispose();
+                }
+            });
 	}
 	
 }
