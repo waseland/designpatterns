@@ -1,0 +1,20 @@
+package tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import nodes.AndNode;
+
+public class NodeTest {
+
+	@Test
+	public void test() {
+		
+		AndNode andNode = new AndNode();
+		andNode.setInputAmount(2);
+		
+		assertEquals("didWork() to return false", false, andNode.didWork());
+	}
+
+}

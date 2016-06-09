@@ -1,0 +1,57 @@
+package tests;
+
+import static org.junit.Assert.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.Test;
+
+import controller.NodeHolder;
+import nodes.AndNode;
+
+public class NodeTest {
+
+	@Test
+	public void testNode() {
+		AndNode andNode = new AndNode();
+		andNode.setInputAmount(2);
+		
+		assertEquals("didWork() to return false", false, andNode.didWork());
+	}
+	
+	@Test
+	public void testCreateCircuit() {
+		NodeHolder holder = new NodeHolder();
+		
+		assertEquals("createCircuit() to return false", false, holder.setCircuit("test.pdf"));
+		assertEquals("createCircuit() to return false", true, holder.getInputNodes().isEmpty());
+	}
+	
+	@Test
+	public void testRunCircuit() {
+		// Create a stream to hold the output
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    PrintStream ps = new PrintStream(baos);
+	    // IMPORTANT: Save the old System.out!
+	    PrintStream old = System.out;
+	    // Tell Java to use your special stream
+	    System.setOut(ps);
+	    // Print some output: goes to your special stream
+	    
+	    
+	    // Show what happened
+		
+		NodeHolder holder = new NodeHolder();
+		
+		assertEquals("createCircuit() to return true", true, holder.setCircuit("C:/Users/Marthijn/Documents/GitHub/designpatterns/Bestanden/circuit1.txt"));
+		holder.start();
+		System.out.print(s);
+		//assertEquals(true, );
+		
+		System.out.flush();
+		System.setOut(old);
+		
+	}
+
+}

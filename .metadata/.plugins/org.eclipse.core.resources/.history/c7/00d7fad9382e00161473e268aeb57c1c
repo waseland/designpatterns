@@ -1,0 +1,31 @@
+package tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import controller.NodeHolder;
+import nodes.AndNode;
+
+public class NodeTest {
+
+	@Test
+	public void testNode() {
+		
+		AndNode andNode = new AndNode();
+		andNode.setInputAmount(2);
+		
+		assertEquals("didWork() to return false", false, andNode.didWork());
+		
+	}
+	
+	@Test
+	public void testCreateCircuit() {
+		
+		NodeHolder holder = new NodeHolder();
+		
+		assertEquals("createCircuit() to return false", false, holder.setCircuit("test.pdf"));
+		assertEquals("createCircuit() to return false", holder.getInputNodes().isEmpty(), holder.setCircuit("test.txt"));
+	}
+
+}

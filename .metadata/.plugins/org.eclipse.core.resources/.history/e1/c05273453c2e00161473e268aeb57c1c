@@ -1,0 +1,199 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import factory.Factory;
+import interfaces.IInputHandler;
+import interfaces.IInputNode;
+import interfaces.INode;
+import interfaces.IOutputHandler;
+import interfaces.IOutputNode;
+import nodes.InputHighNode;
+import nodes.InputLowNode;
+import view.ViewClass;
+
+public class NodeHolder implements IInputHandler{
+	private Map<String, IInputNode> inputNodes = new HashMap<String, IInputNode>();
+	private Map<String, INode> nodes = new HashMap<String, INode>();
+	private Map<String, IOutputNode> outputNodes = new HashMap<String, IOutputNode>();
+	private IOutputHandler output;
+
+	public NodeHolder(IOutputHandler output) {
+		this.output = output;
+	}
+	
+	public NodeHolder() {
+		this.output = new ViewClass();
+	}
+
+	public ArrayList<IInputNode> createCircuit() {
+		return null;
+	}
+
+	public void createNodes(String url) {
+		PathReader pr = new PathReader(output);
+
+		for (String s : pr.getLines(url)) {
+			if (!s.startsWith("#") && !s.isEmpty()) {
+
+				if (s.contains(":") && s.endsWith(";")) {
+					s = s.replace(";", "");
+					s = s.replaceAll("\\s+", "");
+
+					String[] parts = s.split(":", 2);
+
+					String name = parts[0];
+					String type = parts[1];
+					
+					if (!nodes.containsKey(name)) {
+						try {
+							INode node = Factory.createFromName(type);
+							node.setLiteralName(name);
+							node.setOutputHandler(output);
+							
+							if (node.isInput()) {
+								inputNodes.put(name, (IInputNode) node);
+							} else if (node.isOutput()) {
+								IOutputNode newNode = (IOutputNode) node;
+								outputNodes.put(name, (IOutputNode) newNode);
+							}
+							nodes.put(name, node);
+						} catch (Exception e) {
+							output.write("Looks like the file you provided has some errors inside of it.\nPlease fix to be able to use this application.");
+						}
+					} else {
+						INode node = nodes.get(name);
+						String[] names = type.split(",");
+						for(String n : names) {
+							node.addOutputNode(nodes.get(n));
+							nodes.get(n).heightenInputAmount();
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	//TODO: before start do some kind of clear on nodes. 2nd run wont work due to existing values.
+	@Override
+	public void start() {
+		for(String n : nodes.keySet()) {
+			nodes.get(n).clearValues();
+		}
+		
+		long start_time = System.nanoTime();
+		
+		for(String s : inputNodes.keySet()) {
+			inputNodes.get(s).doAction();
+		}
+		
+		long end_time = System.nanoTime();
+		
+		output.write("Circuit completed in " + (end_time-start_time) + " nanoseconds");
+		
+		for(String s : nodes.keySet()) {
+			if(!nodes.get(s).didWork()) {
+				output.write("WARING: Node " + nodes.get(s).getLiteralName() + " did not work correctly!");
+			}
+		}
+	}
+
+	@Override
+	public boolean setCircuit(String s) {
+		inputNodes.clear();
+		outputNodes.clear();
+		nodes.clear();
+		
+		if(s.toLowerCase().endsWith(".txt")) {
+			createNodes(s);
+			
+			if(outputNodes.isEmpty()) {
+				output.write("WARNING: Your circuit does not have any output nodes!");
+			}
+			
+			for(String s2 : nodes.keySet()) {
+				if(nodes.get(s2).getOutputNodes().size() < 1 && !nodes.get(s2).isOutput()) {
+					output.write("WARING: Node " + nodes.get(s2).getLiteralName() + " does not have any output nodes!");
+				}
+			}
+			
+			return true;
+		} else {
+			return false;
+		}
+			
+	}
+	
+	@Override
+	public void showCircuit() {
+		for(String name : nodes.keySet()) {
+			String outputs = "";
+			
+			for(INode n : nodes.get(name).getOutputNodes()) {
+				outputs += n.getLiteralName() + "(" + n.getName() + "), ";
+			}
+			
+			if(nodes.get(name).getOutputNodes().size() < 1) {
+				outputs = "FINAL.";
+			} else {
+				outputs = outputs.substring(0, outputs.length()-2);
+				outputs = outputs + ".";
+			}
+			
+			String circuitString = "NODE: " + nodes.get(name).getLiteralName() + "(" + nodes.get(name).getName() + ") - OUTPUT: " + outputs;
+			
+			output.write(circuitString);
+		}
+	}
+	
+	@Override
+	public Map<String, IInputNode> getInputNodes(){
+		return this.inputNodes;
+		
+	}
+	
+	public Map<String, IOutputNode> getOutputNodes(){
+		return this.outputNodes;
+		
+	}
+	
+	public Map<String, IOutputNode> getNodes(){
+		return this.nodes;
+		
+	}
+
+	@Override
+	public void changeInputNodes(List<String> temp) {
+
+		for(String s : temp){
+			
+			if(this.inputNodes.get(s).getName() == "INPUT_HIGH"){
+				InputHighNode tempnode = (InputHighNode) this.inputNodes.get(s);
+				InputLowNode tempnode2 =  new InputLowNode();
+				tempnode2.setOutputNodes(tempnode.getOutputNodes());
+				tempnode2.setLiteralName(tempnode.getLiteralName());
+				nodes.remove(s);
+				nodes.put(s, tempnode2);
+				inputNodes.remove(s);
+				inputNodes.put(s, tempnode2);
+				
+			}
+			else {
+				
+				InputLowNode tempnode = (InputLowNode) this.inputNodes.get(s);
+				InputHighNode tempnode2 =  new InputHighNode();
+				tempnode2.setOutputNodes(tempnode.getOutputNodes());
+				tempnode2.setLiteralName(tempnode.getLiteralName());
+				nodes.remove(s);
+				nodes.put(s, tempnode2);
+				inputNodes.remove(s);
+				inputNodes.put(s, tempnode2);
+			}
+			
+			
+		}
+	};
+}

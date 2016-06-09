@@ -1,0 +1,41 @@
+package tests;
+
+import static org.junit.Assert.*;
+
+import java.io.ByteArrayOutputStream;
+
+import org.junit.Test;
+
+import controller.NodeHolder;
+import nodes.AndNode;
+
+public class NodeTest {
+
+	@Test
+	public void testNode() {
+		AndNode andNode = new AndNode();
+		andNode.setInputAmount(2);
+		
+		assertEquals("didWork() to return false", false, andNode.didWork());
+	}
+	
+	@Test
+	public void testCreateCircuit() {
+		NodeHolder holder = new NodeHolder();
+		
+		assertEquals("createCircuit() to return false", false, holder.setCircuit("test.pdf"));
+		assertEquals("createCircuit() to return false", true, holder.getInputNodes().isEmpty());
+	}
+	
+	@Test
+	public void testRunCircuit() {
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream(); 
+		NodeHolder holder = new NodeHolder();
+		
+		assertEquals("createCircuit() to return true", true, holder.setCircuit("C:/Users/Marthijn/Documents/GitHub/designpatterns/Bestanden/circuit1.txt"));
+		holder.start();
+		assertEquals(true, outContent.toString().endsWith("nanoseconds"));
+		System.out.println("testtesttest" + outContent.toString());
+	}
+
+}

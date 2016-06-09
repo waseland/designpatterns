@@ -33,6 +33,11 @@ public class NodeHolder implements IInputHandler{
 		return null;
 	}
 
+	
+	/**
+	 * Creates all nodes from .txt file.
+	 * @param url The string url to the .txt file.
+	 */
 	public void createNodes(String url) {
 		PathReader pr = new PathReader(output);
 
@@ -77,8 +82,10 @@ public class NodeHolder implements IInputHandler{
 		}
 	}
 	
-	//TODO: before start do some kind of clear on nodes. 2nd run wont work due to existing values.
 	@Override
+	/**
+	 * Starts all the inputnodes.
+	 */
 	public void start() {
 		for(String n : nodes.keySet()) {
 			nodes.get(n).clearValues();
@@ -102,6 +109,9 @@ public class NodeHolder implements IInputHandler{
 	}
 
 	@Override
+	/**
+	 * Sets the circuit when a .txt file is supplied.
+	 */
 	public boolean setCircuit(String s) {
 		inputNodes.clear();
 		outputNodes.clear();
@@ -128,6 +138,9 @@ public class NodeHolder implements IInputHandler{
 	}
 	
 	@Override
+	/**
+	 * Tells the output to write the circuit.
+	 */
 	public void showCircuit() {
 		for(String name : nodes.keySet()) {
 			String outputs = "";
@@ -154,8 +167,21 @@ public class NodeHolder implements IInputHandler{
 		return this.inputNodes;
 		
 	}
+	
+	public Map<String, IOutputNode> getOutputNodes(){
+		return this.outputNodes;
+		
+	}
+	
+	public Map<String, INode> getNodes(){
+		return this.nodes;
+		
+	}
 
 	@Override
+	/**
+	 * Method that will switch an INPUT_HIGH to INPUT_LOW and the way around.
+	 */
 	public void changeInputNodes(List<String> temp) {
 
 		for(String s : temp){
