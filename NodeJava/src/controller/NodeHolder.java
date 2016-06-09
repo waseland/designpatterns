@@ -84,13 +84,19 @@ public class NodeHolder implements IInputHandler{
 			nodes.get(n).clearValues();
 		}
 		
+		long start_time = System.nanoTime();
+		
 		for(String s : inputNodes.keySet()) {
 			inputNodes.get(s).doAction();
 		}
 		
-		for(String s : outputNodes.keySet()) {
-			if(!outputNodes.get(s).didWork()) {
-				output.write("WARING: Node " + outputNodes.get(s).getLiteralName() + " did not work correctly!");
+		long end_time = System.nanoTime();
+		
+		output.write("Circuit completed in " + (end_time-start_time) + " nanoseconds");
+		
+		for(String s : nodes.keySet()) {
+			if(!nodes.get(s).didWork()) {
+				output.write("WARING: Node " + nodes.get(s).getLiteralName() + " did not work correctly!");
 			}
 		}
 	}
@@ -101,11 +107,17 @@ public class NodeHolder implements IInputHandler{
 		outputNodes.clear();
 		nodes.clear();
 		
-		if(s.endsWith(".txt")) {
+		if(s.toLowerCase().endsWith(".txt")) {
 			createNodes(s);
 			
 			if(outputNodes.isEmpty()) {
 				output.write("WARNING: Your circuit does not have any output nodes!");
+			}
+			
+			for(String s2 : nodes.keySet()) {
+				if(nodes.get(s2).getOutputNodes().size() < 1 && !nodes.get(s2).isOutput()) {
+					output.write("WARING: Node " + nodes.get(s2).getLiteralName() + " does not have any output nodes!");
+				}
 			}
 			
 			return true;
@@ -153,16 +165,20 @@ public class NodeHolder implements IInputHandler{
 				InputLowNode tempnode2 =  new InputLowNode();
 				tempnode2.setOutputNodes(tempnode.getOutputNodes());
 				tempnode2.setLiteralName(tempnode.getLiteralName());
+				nodes.remove(s);
+				nodes.put(s, tempnode2);
 				inputNodes.remove(s);
 				inputNodes.put(s, tempnode2);
 				
 			}
-			else if(this.inputNodes.get(s).getName() == "INPUT_LOW"){
+			else {
 				
 				InputLowNode tempnode = (InputLowNode) this.inputNodes.get(s);
 				InputHighNode tempnode2 =  new InputHighNode();
 				tempnode2.setOutputNodes(tempnode.getOutputNodes());
 				tempnode2.setLiteralName(tempnode.getLiteralName());
+				nodes.remove(s);
+				nodes.put(s, tempnode2);
 				inputNodes.remove(s);
 				inputNodes.put(s, tempnode2);
 			}

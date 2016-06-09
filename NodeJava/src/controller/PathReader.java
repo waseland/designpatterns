@@ -32,7 +32,7 @@ public class PathReader {
 			Path path = Paths.get(pathString);
 			if (!pathString.equals("") && Files.exists(path)) {
 				output.write("Path is: " + path);
-				if(pathString.endsWith(".txt")){
+				if(pathString.toLowerCase().endsWith(".txt")){
 					output.write("Found the file!");
 					//Returns the file as an ArrayList of Strings.
 					return getFile(pathString);
