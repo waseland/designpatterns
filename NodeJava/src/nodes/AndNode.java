@@ -3,6 +3,7 @@ package nodes;
 import java.util.ArrayList;
 
 import interfaces.INode;
+import interfaces.IOutputHandler;
 
 public class AndNode implements INode {
 
@@ -13,6 +14,7 @@ public class AndNode implements INode {
 	private String name = "AND";
 	private boolean isInput = false;
 	private boolean isOutput = false;
+	private IOutputHandler handler;
 	
 	public String getName() {
 		return name;
@@ -36,6 +38,10 @@ public class AndNode implements INode {
 		
 		for(INode node : outputNodes) {
 			node.addValue(output);
+		}
+		
+		if(handler != null) {
+			handler.write("Node " + this.getLiteralName() + " sent ouput " + output + ".");
 		}
 	}
 	
@@ -106,5 +112,10 @@ public class AndNode implements INode {
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public void setOutputHandler(IOutputHandler handler) {
+		this.handler = handler;
 	}
 }

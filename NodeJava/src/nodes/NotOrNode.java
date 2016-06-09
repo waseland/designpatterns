@@ -3,6 +3,7 @@ package nodes;
 import java.util.ArrayList;
 
 import interfaces.INode;
+import interfaces.IOutputHandler;
 
 public class NotOrNode implements INode{
 
@@ -13,6 +14,7 @@ public class NotOrNode implements INode{
 	private String name = "NOR";
 	private boolean isInput = false;
 	private boolean isOutput = false;
+	private IOutputHandler handler;
 	
 	public String getName() {
 		return name;
@@ -107,6 +109,11 @@ public class NotOrNode implements INode{
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public void setOutputHandler(IOutputHandler handler) {
+		this.handler = handler;
 	}
 
 }

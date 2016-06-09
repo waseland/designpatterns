@@ -15,6 +15,7 @@ public interface INode extends Cloneable {
 	public void setLiteralName(String name);
 	public void clearValues();
 	public boolean didWork();
+	public void setOutputHandler(IOutputHandler handler);
 	
 	INode copy();
 	String getName();

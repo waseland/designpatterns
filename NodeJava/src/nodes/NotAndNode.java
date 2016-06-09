@@ -3,6 +3,7 @@ package nodes;
 import java.util.ArrayList;
 
 import interfaces.INode;
+import interfaces.IOutputHandler;
 
 public class NotAndNode implements INode{
 
@@ -13,6 +14,7 @@ public class NotAndNode implements INode{
 	private String name = "NAND";
 	private boolean isInput = false;
 	private boolean isOutput = false;
+	private IOutputHandler handler;
 	
 	public String getName() {
 		return name;
@@ -106,6 +108,11 @@ public class NotAndNode implements INode{
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public void setOutputHandler(IOutputHandler handler) {
+		this.handler = handler;
 	}
 
 }

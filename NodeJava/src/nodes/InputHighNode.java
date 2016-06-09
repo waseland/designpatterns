@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import interfaces.IInputNode;
 import interfaces.INode;
+import interfaces.IOutputHandler;
 
 public class InputHighNode implements IInputNode {
 
@@ -14,6 +15,7 @@ public class InputHighNode implements IInputNode {
 	private String name = "INPUT_HIGH";
 	private boolean isInput = true;
 	private boolean isOutput = false;
+	private IOutputHandler handler;
 	
 	public String getName() {
 		return name;
@@ -103,5 +105,10 @@ public class InputHighNode implements IInputNode {
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public void setOutputHandler(IOutputHandler handler) {
+		this.handler = handler;
 	}
 }

@@ -3,6 +3,7 @@ package nodes;
 import java.util.ArrayList;
 
 import interfaces.INode;
+import interfaces.IOutputHandler;
 
 public class OrNode implements INode{
 
@@ -13,6 +14,7 @@ public class OrNode implements INode{
 	private String name = "OR";
 	private boolean isInput = false;
 	private boolean isOutput = false;
+	private IOutputHandler handler;
 	
 	public String getName() {
 		return name;
@@ -107,5 +109,10 @@ public class OrNode implements INode{
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public void setOutputHandler(IOutputHandler handler) {
+		this.handler = handler;
 	}
 }

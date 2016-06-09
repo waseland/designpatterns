@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import interfaces.IInputNode;
 import interfaces.INode;
+import interfaces.IOutputHandler;
 
 public class InputLowNode implements IInputNode {
 
@@ -14,6 +15,7 @@ public class InputLowNode implements IInputNode {
 	private String name = "INPUT_LOW";
 	private boolean isInput = true;
 	private boolean isOutput = false;
+	private IOutputHandler handler;
 	
 	public String getName() {
 		return name;
@@ -105,5 +107,10 @@ public class InputLowNode implements IInputNode {
 	@Override
 	public void clearValues() {
 		this.values.clear();
+	}
+	
+	@Override
+	public void setOutputHandler(IOutputHandler handler) {
+		this.handler = handler;
 	}
 }

@@ -52,12 +52,12 @@ public class NodeHolder implements IInputHandler{
 						try {
 							INode node = Factory.createFromName(type);
 							node.setLiteralName(name);
+							node.setOutputHandler(output);
 							
 							if (node.isInput()) {
 								inputNodes.put(name, (IInputNode) node);
 							} else if (node.isOutput()) {
 								IOutputNode newNode = (IOutputNode) node;
-								newNode.setOutputHandler(output);
 								outputNodes.put(name, (IOutputNode) newNode);
 							}
 							nodes.put(name, node);
