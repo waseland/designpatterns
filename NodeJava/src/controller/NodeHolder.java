@@ -14,6 +14,8 @@ import interfaces.IOutputNode;
 import nodes.InputHighNode;
 import nodes.InputLowNode;
 import view.ViewClass;
+import visitor.InputNodeDisplayVisitor;
+import visitor.InputNodeVisitor;
 
 public class NodeHolder implements IInputHandler{
 	private Map<String, IInputNode> inputNodes = new HashMap<String, IInputNode>();
@@ -187,26 +189,22 @@ public class NodeHolder implements IInputHandler{
 		for(String s : temp){
 			
 			if(this.inputNodes.get(s).getName() == "INPUT_HIGH"){
-				InputHighNode tempnode = (InputHighNode) this.inputNodes.get(s);
-				InputLowNode tempnode2 =  new InputLowNode();
-				tempnode2.setOutputNodes(tempnode.getOutputNodes());
-				tempnode2.setLiteralName(tempnode.getLiteralName());
-				nodes.remove(s);
-				nodes.put(s, tempnode2);
-				inputNodes.remove(s);
-				inputNodes.put(s, tempnode2);
+				this.inputNodes.get(s).accept(new InputNodeDisplayVisitor(this));
+				
+
 				
 			}
 			else {
+				this.inputNodes.get(s).accept(new InputNodeDisplayVisitor(this));
 				
-				InputLowNode tempnode = (InputLowNode) this.inputNodes.get(s);
-				InputHighNode tempnode2 =  new InputHighNode();
-				tempnode2.setOutputNodes(tempnode.getOutputNodes());
-				tempnode2.setLiteralName(tempnode.getLiteralName());
-				nodes.remove(s);
-				nodes.put(s, tempnode2);
-				inputNodes.remove(s);
-				inputNodes.put(s, tempnode2);
+//				InputLowNode tempnode = (InputLowNode) this.inputNodes.get(s);
+//				InputHighNode tempnode2 =  new InputHighNode();
+//				tempnode2.setOutputNodes(tempnode.getOutputNodes());
+//				tempnode2.setLiteralName(tempnode.getLiteralName());
+//				nodes.remove(s);
+//				nodes.put(s, tempnode2);
+//				inputNodes.remove(s);
+//				inputNodes.put(s, tempnode2);
 			}
 			
 			
