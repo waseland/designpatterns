@@ -127,6 +127,17 @@ public class MainWindow extends JFrame implements IOutputHandler {
 	public void doOutput(String name, boolean value) {
 		this.textArea.append("The output from " + name + " is " + value + "." + "\n");
 	}
+	
+	@Override
+	public void sendNodeValues(String name, String type, ArrayList<Boolean> inputs, boolean output, long time) {
+		this.textArea.append("Node " + name + "(" + type + ") received inputs ");
+		
+		for(Boolean b : inputs) {
+			this.textArea.append(b + " ");
+		}
+		
+		this.textArea.append("and sent ouput " + output + " in " + time + " nanoseconds \n");
+	}
 
 	@Override
 	public void write(String s) {
@@ -168,6 +179,5 @@ public class MainWindow extends JFrame implements IOutputHandler {
                 	frame.dispose();
                 }
             });
-	}
-	
+	}	
 }

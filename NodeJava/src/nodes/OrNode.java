@@ -27,6 +27,8 @@ public class OrNode implements INode{
 	
 	@Override
 	public void doAction() {
+		long start_time = System.nanoTime();
+		
 		Boolean output = false;
 		
 		//OR, if one of the values is true, send true. Otherwise send false.
@@ -40,6 +42,11 @@ public class OrNode implements INode{
 			node.addValue(output);
 		}
 		
+		long end_time = System.nanoTime();
+		
+		if(handler != null) {
+			handler.sendNodeValues(this.getLiteralName(), name, values, output, (end_time-start_time));
+		}
 	}
 
 	@Override

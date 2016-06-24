@@ -27,6 +27,8 @@ public class XOrNode implements INode {
 	
 	@Override
 	public void doAction() {
+		long start_time = System.nanoTime();
+		
 		Boolean output = false;
 		
 		//When both inputs are different, send true.
@@ -38,6 +40,12 @@ public class XOrNode implements INode {
 		
 		for(INode node : outputNodes) {
 			node.addValue(output);
+		}
+		
+		long end_time = System.nanoTime();
+		
+		if(handler != null) {
+			handler.sendNodeValues(this.getLiteralName(), name, values, output, (end_time-start_time));
 		}
 	}
 	
