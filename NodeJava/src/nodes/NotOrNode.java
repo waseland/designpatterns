@@ -27,6 +27,8 @@ public class NotOrNode implements INode{
 	
 	@Override
 	public void doAction() {
+		long start_time = System.nanoTime();
+		
 		Boolean output = true;
 		
 		//NOR, if all values are false, send true, otherwise send false.
@@ -40,6 +42,11 @@ public class NotOrNode implements INode{
 			node.addValue(output);
 		}
 		
+		long end_time = System.nanoTime();
+		
+		if(handler != null) {
+			handler.sendNodeValues(this.getLiteralName(), name, values, output, (end_time-start_time));
+		}		
 	}
 
 	@Override

@@ -27,6 +27,8 @@ public class AndNode implements INode {
 	
 	@Override
 	public void doAction() {
+		long start_time = System.nanoTime();
+		
 		Boolean output = true;
 		
 		//AND, if all values are true, send true, otherwise send false.
@@ -40,8 +42,10 @@ public class AndNode implements INode {
 			node.addValue(output);
 		}
 		
+		long end_time = System.nanoTime();
+		
 		if(handler != null) {
-			handler.write("Node " + this.getLiteralName() + " sent ouput " + output + ".");
+			handler.sendNodeValues(this.getLiteralName(), name, values, output, (end_time-start_time));
 		}
 	}
 	

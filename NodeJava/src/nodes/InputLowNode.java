@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import interfaces.IInputNode;
 import interfaces.INode;
 import interfaces.IOutputHandler;
+import visitor.InputNodeVisitor;
 
 public class InputLowNode implements IInputNode {
 
@@ -112,5 +113,11 @@ public class InputLowNode implements IInputNode {
 	@Override
 	public void setOutputHandler(IOutputHandler handler) {
 		this.handler = handler;
+	}
+
+	@Override
+	public void accept(InputNodeVisitor inputNodeVisitor) {
+		// TODO Auto-generated method stub
+		inputNodeVisitor.visit(this);
 	}
 }
