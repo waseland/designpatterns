@@ -23,7 +23,7 @@ public class ViewClass implements IOutputHandler {
 			System.out.print(b + " ");
 		}
 		
-		System.out.print("and sent ouput " + output + " in " + time + " nanoseconds \n");
+		System.out.print("and sent ouput " + output + " in " + time + " nanoseconds.\n");
 	}
 }
 

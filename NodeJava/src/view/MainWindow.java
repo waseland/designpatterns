@@ -136,7 +136,7 @@ public class MainWindow extends JFrame implements IOutputHandler {
 			this.textArea.append(b + " ");
 		}
 		
-		this.textArea.append("and sent ouput " + output + " in " + time + " nanoseconds \n");
+		this.textArea.append("and sent ouput " + output + " in " + time + " nanoseconds.\n");
 	}
 
 	@Override

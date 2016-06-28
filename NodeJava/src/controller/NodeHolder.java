@@ -101,7 +101,7 @@ public class NodeHolder implements IInputHandler{
 		
 		long end_time = System.nanoTime();
 		
-		output.write("Circuit completed in " + (end_time-start_time) + " nanoseconds");
+		output.write("Circuit completed in " + (end_time-start_time) + " nanoseconds.");
 		
 		for(String s : nodes.keySet()) {
 			if(!nodes.get(s).didWork()) {
